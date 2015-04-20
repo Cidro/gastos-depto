@@ -1,0 +1,23 @@
+{
+  "name": "gastos-depto",
+  "version": "0.0.0",
+  "authors": [
+    "cidro <pablo.canaleshernandez@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "immutable": "~3.6.4",
+    "moreartyjs": "~0.7.14",
+    "react": "~0.13.1",
+    "bootstrap": "~3.3.4",
+    "reflux": "^0.2.7"
+  }
+}

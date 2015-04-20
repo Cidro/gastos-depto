@@ -1,0 +1,6 @@
+/lumen.log
+/vendor
+.env
+.idea
+public/js/build
+public/bower_components

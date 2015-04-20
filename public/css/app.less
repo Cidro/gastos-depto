@@ -1,0 +1,48 @@
+@import "../bower_components/bootstrap/less/bootstrap";
+body {
+    padding-top: 20px;
+}
+
+table tr {
+    td {
+        .record-status {
+            .glyphicon();
+        }
+    }
+    &.deleted td {
+        background-color: @alert-warning-bg;
+        .record-status {
+            .glyphicon-ban-circle();
+        }
+    }
+    &.synced td {
+        -webkit-animation: highlight 1s linear;
+        .record-status {
+            .glyphicon-ok-circle();
+        }
+    }
+    &.un-synced td {
+        background-color: @alert-danger-bg!important;
+        .record-status {
+            .glyphicon-refresh();
+            -webkit-animation: spin 2s infinite linear;
+        }
+    }
+}
+
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@-webkit-keyframes highlight {
+    0% {
+        background-color: @alert-danger-bg;
+    }
+    50% {
+        background-color: @alert-success-bg;
+    }
+    100% {
+        background-color: transparent;
+    }
+}
