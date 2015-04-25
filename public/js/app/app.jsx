@@ -55,13 +55,22 @@ var App = React.createClass({
     },
 
     render: function(){
-        var binding = this.getDefaultBinding();
+        var binding = this.getDefaultBinding(),
+            record = binding.sub('record').get();
+
+        var renderRecordTitle = function () {
+            if(record.get('id'))
+                return 'Editing Record ' + record.get('id');
+            else
+                return 'New Record';
+        };
+
         return (
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-sm-3">
                         <div className="panel panel-primary">
-                            <div className="panel-heading">New Record</div>
+                            <div className="panel-heading">{renderRecordTitle()}</div>
                             <div className="panel-body">
                                 <RecordForm binding={binding} />
                             </div>

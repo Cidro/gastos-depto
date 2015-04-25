@@ -6,9 +6,8 @@ var CategorySelect = React.createClass({
         binding.set('category_id', parseInt(e.target.value, 10));
     },
     render: function(){
-        var binding = this.getDefaultBinding(),
-            record = binding.get(),
-            categories = this.props.categories;
+        var categories = this.props.categories,
+            selectedCategory = this.props.selectedCategory || '';
 
         var renderCategoriesOption = function(category, id){
             return (
@@ -19,7 +18,7 @@ var CategorySelect = React.createClass({
         return(
             <div className="form-group">
                 <label htmlFor="category">Category</label>
-                <select name="category" id="category" className="form-control" value={record.get('category_id')} onChange={this.handleChange}>
+                <select name="category" id="category" className="form-control" value={selectedCategory} onChange={this.handleChange}>
                     <option> - - </option>
                     {categories.map(renderCategoriesOption).toArray()}
                 </select>

@@ -15,19 +15,19 @@ var RecordListRowActions = React.createClass({
             record = binding.get(this.props.index);
 
         var renderActions = function () {
-            var actions = null;
-            if(record.get('status') == 'deleted'){
-                actions = (<div className="btn-toolbar">
+            if(record.get('synced') !== true)
+                return (<div className="btn-toolbar"></div>);
+
+            if(record.get('status') == 'deleted')
+                return (<div className="btn-toolbar">
                     <button value="undo" className="btn btn-xs btn-warning">Undo</button>
                 </div>);
-            } else {
-                actions = (<div className="btn-toolbar">
-                    <button value="edit" className="btn btn-xs btn-primary">Edit</button>
-                    <button value="delete" className="btn btn-xs btn-danger">Delete</button>
-                </div>);
-            }
-            return actions;
-        }
+
+            return (<div className="btn-toolbar">
+                <button value="edit" className="btn btn-xs btn-primary">Edit</button>
+                <button value="delete" className="btn btn-xs btn-danger">Delete</button>
+            </div>);
+        };
 
         return (
             <div className="record-actions" onClick={this.handleClick}>

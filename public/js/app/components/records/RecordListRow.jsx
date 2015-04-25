@@ -23,7 +23,6 @@ var RecordListRow = React.createClass({
             var statusClasses = [];
             statusClasses.push(!record.get('synced') ? 'un-synced' : 'synced')
             statusClasses.push(record.get('status'));
-            console.log(statusClasses);
             return statusClasses.join(' ');
         };
 

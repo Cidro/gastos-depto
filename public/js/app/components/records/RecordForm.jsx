@@ -4,12 +4,21 @@ var RecordForm = React.createClass({
     handleSubmit: function (e) {
         var binding = this.getDefaultBinding(),
             record = binding.get('record');
-        this.addRecord(record);
+        if(record.get('id'))
+            this.updateRecord(record);
+        else
+            this.addRecord(record);
+        this.clearForm();
         e.preventDefault();
     },
+    updateRecord: function (record) {
+        RecordActions.edit(record);
+    },
     addRecord: function (record) {
-        var binding = this.getDefaultBinding();
         RecordActions.add(record);
+    },
+    clearForm: function () {
+        var binding = this.getDefaultBinding();
         binding.update('record', function(){
             return emptyRecord;
         });
@@ -24,11 +33,14 @@ var RecordForm = React.createClass({
         return (
             <form className="record-form" onSubmit={this.handleSubmit} onChange={this.handleChange}>
                 <UserSelect users={usersBinding.get()} selectedUser={record.get('user_id')} binding={recordBinding}/>
-                <CategorySelect categories={categoriesBinding.get()} binding={recordBinding}/>
+                <CategorySelect categories={categoriesBinding.get()} selectedCategory={record.get('category_id')} binding={recordBinding}/>
                 <GenericInput label="Amount" type="number" id="amount" binding={recordBinding}/>
                 <GenericTextarea label="Description" id="description" binding={recordBinding}/>
                 <UserPicker users={usersBinding.get()} binding={recordBinding}/>
-                <button type="submit" className="btn btn-primary">Grabar</button>
+                <div className="btn-toolbar">
+                    <button type="submit" className="btn btn-primary">{record.get('id') ? 'Update' : 'Save'}</button>
+                    <button type="button" className="btn btn-warning" onClick={this.clearForm}>{record.get('id') ? 'Cancel' : 'Reset'}</button>
+                </div>
             </form>
         );
     }

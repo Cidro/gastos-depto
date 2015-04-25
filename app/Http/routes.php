@@ -18,7 +18,7 @@ $app->get('/', function() use ($app) {
 });
 $app->post('/records', function(Request $request) use ($app) {
     $input = $request->json()->all();
-    $input['id'] = time();
+    $input['id'] = uniqid();
     $input['synced'] = true;
     sleep(2);
     return response()->json($input);

@@ -7,9 +7,8 @@ var UserSelect = React.createClass({
         binding.set('user_id', parseInt(value, 10));
     },
     render: function(){
-        var binding = this.getDefaultBinding(),
-            record = binding.get(),
-            users = this.props.users;
+            var users = this.props.users,
+            selectedUser = this.props.selectedUser || '';
 
         var renderUsersOption = function(user, id){
             return (
@@ -19,7 +18,7 @@ var UserSelect = React.createClass({
         return (
             <div className="form-group">
                 <label htmlFor="user">Owner</label>
-                <select name="user" id="user" className="form-control" value={this.props.selectedUser} onChange={this.handleChange}>
+                <select name="user" id="user" className="form-control" value={selectedUser} onChange={this.handleChange}>
                     <option value=""> - - </option>
                     {users.map(renderUsersOption).toArray()}
                 </select>

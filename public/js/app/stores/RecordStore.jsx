@@ -11,31 +11,39 @@ var RecordStore = Reflux.createStore({
         this.recordBinding = this.rootBinding.get('record');
     },
 
-    onAdd: function (record) {
+    onAdd: function (newRecord) {
         var index = null;
         //Quick browser update
         this.rootBinding.update('records', function (records) {
-            records = records.push(record);
+            records = records.push(newRecord);
             index = records.size - 1;
             return records;
         });
         //Update on the backend
-        console.log('add', index);
-        this.syncRecord(index, record);
+        this.syncRecord(index, newRecord);
     },
 
-    onEdit: function (record) {
-        console.log('edit', record);
+    onEdit: function (updatedRecord) {
+        var index = null;
+        updatedRecord = updatedRecord.set('synced', false);
+        this.rootBinding.update('records', function (records) {
+            var record = records.find(function (record, i) {
+                if(record.get('id') == updatedRecord.get('id')){
+                    index = i;
+                    return true;
+                }
+            });
+            return records.set(index, updatedRecord);
+        });
+        this.syncRecord(index, updatedRecord)
     },
 
     onRemove: function (index) {
         this.updateStatus(index, 'deleted');
-        console.log('remove', index);
     },
 
     onUndo: function (index) {
         this.updateStatus(index, 'active');
-        console.log('undo', index);
     },
 
     updateStatus: function (index, status) {
@@ -49,7 +57,7 @@ var RecordStore = Reflux.createStore({
                 return updatedRecord;
             });
             return records;
-        })
+        });
         this.syncRecord(index, updatedRecord);
     },
 
